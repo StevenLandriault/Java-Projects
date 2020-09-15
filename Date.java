@@ -5,22 +5,24 @@
  */
 public class Date {
     
-    // TODO add Date attributes/fields...
     private String month;
     private int day;
     private int year;
-    /* Date
-     * Purpose: Initialize this instance of Date with values for: January 1, 1582
+    
+    
+    /*
+     * Purpose: Initialize this instance of Date with values for: January 01, 1582
      *
      * Parameters: nothing
      */
-    // TODO...
-    public Date(){
-        month = "January";
-        day = 1;
-        year = 1582;
+    public Date () {
+
+        this.month = "January";
+        this.day   = 1;
+        this.year  = 1582;
     }
-	/* Date
+
+	/*
      * Purpose: Initialize this instance of Date with parameter values
      *
      * Parameters: String month, int day, int year
@@ -28,28 +30,25 @@ public class Date {
      * Precondition: month, day and year specify a valid date
      *  in the Gregorian calendar.
      */
-    // TODO...
-    public Date(String month, int day, int year){
-        this.month = month;
-        this.day = day;
-        this.year = year;
-    }
-    
+	public Date (String month, int day, int year) {
 
-    /* getMonth
+        this.month = month;
+        this.day   = day;
+        this.year  = year;
+	}
+
+    /*
      * Purpose: Returns the month associated with this Date
      *
      * Parameters: nothing
      *
      * Returns: (String) - month associated with this Date
      */
-    // TODO...
-    public String getMonth(){
+    public String getMonth() {
         return month;
     }
-
     
-    /* setMonth
+    /*
      * Purpose: sets the month associated with this Date to parameter value
      *
      * Parameters: String month
@@ -59,26 +58,22 @@ public class Date {
      *
      * Returns: nothing
      */
-    // TODO...
-    public void setMonth(String month){
-        this.month = month;
-    }
+	public void setMonth (String month) {
+		this.month = month;
+	}
 
-
-    /* getDay
+    /*
      * Purpose: Returns the day associated with this Date
      *
      * Parameters: nothing
      *
      * Returns: (int) - day associated with this Date
      */
-    // TODO...
-    public int getDay(){
+    public int getDay () {
         return day;
     }
 
-
-    /* setDay
+    /*
      * Purpose: sets the day associated with this Date to parameter value
      *
      * Parameters: int day
@@ -88,26 +83,22 @@ public class Date {
      *
      * Returns: nothing
      */
-    // TODO...
-    public void setDay(int day){
+    public void setDay (int day) {
         this.day = day;
     }
 
-
-    /* getYear
+    /*
      * Purpose: Returns the year associated with this Date
      *
      * Parameters: nothing
      *
      * Returns: int - year associated with the date
      */
-    // TODO...
-    public int getYear(){
+    public int getYear () {
         return year;
     }
 
-
-    /* setYear
+    /*
      * Purpose: sets the year associated with this Date to parameter value
      *
      * Parameters: int year
@@ -117,13 +108,11 @@ public class Date {
      *
      * Returns: nothing
      */
-    // TODO...
-    public void setYear(int year){
+    public void setYear (int year) {
         this.year = year;
     }
 
-
-    /* equals
+    /*
      * Purpose: determines whether the month, day and year of
      *  this instance of Date is equal to other's month, day, year
      *
@@ -133,17 +122,14 @@ public class Date {
      *
      * Returns: true if this Date equals other date, false otherwise
      */
-    // TODO...
-    public boolean equals(Date other){
-        if(this.year == other.year && this.day == other.day && this.month.equals(other.month)){
-            return true;
-        }
-            return false;
+    public boolean equals (Date other) {
+        return  other.getMonth().equals(month) &&
+                other.getDay()   == day &&
+                other.getYear()  == year;
     }
 
 
-
-    /* toString
+    /*
      * Purpose: returns a String representing this Date formated as:
      *  month day, year
      *
@@ -155,10 +141,7 @@ public class Date {
      *  Date d = new Date("January", 25, 2019)
      *  d.toString() returns "January 25, 2019"
      */
-    // TODO...
-    public String toString(){
-        return month + " " + day + ", " + year;
-    }
-    
-
+	public String toString() {
+			return month + " " + day + ", " + year;
+	}
 }

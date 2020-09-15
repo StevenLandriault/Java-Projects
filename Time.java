@@ -5,78 +5,67 @@
  */
 public class Time {
 
-    // TODO: add Time attributes/fields..
-    private int hour;
-    private int minute;
-    /* Time
+    private int hour;   // can be 0 to 23 inclusive
+    private int minute; // can be 0 to 59 inclusive
+
+
+    /*
      * Purpose: Initialize this instance of Time with values for a time of 0:0
      *
      * Parameters: nothing
      */
-    // TODO...
-    public Time(){
-        hour = 0;
-        minute = 0;
+    public Time () {
+        this.hour   = 0;
+        this.minute = 0;
     }
 
-
-	/* Time
+	/*
      * Purpose: Initialize this instance of Time with parameter values
      *
      * Parameters: int hour, int minute
      *
      * Precondition: hour and minute specify a valid time on a 24 hour clock
      */
-    // TODO...
-    public Time(int hour, int minute){
-        this.hour = hour;
-        this.minute = minute;
-    }
+	public Time (int hour, int minute) {
 
+        this.hour   = hour;
+        this.minute = minute;
+	}
     
 
-    /* getHour
+    /*
      * Purpose: Returns the hour associated with this Time
      *
      * Parameters: nothing
      *
      * Returns: (int) - hour associated with this Time
      */
-    // TODO...
-    public int getHour(){
+    public int getHour () {
         return hour;
     }
 
-
-    /* setHour
+    /*
      * Purpose: sets the hour associated with this Time to parameter value
      *
      * Parameters: int hour
-     *
-     * Precondition: 0 <= hour <= 23
-     *
      * Returns: nothing
      */
-    // TODO...
-    public void setHour(int hour){
-        this.hour = hour;
-    }
+	public void setHour (int hour) {
+		this.hour = hour;
+	}
 
-
-    /* getMinute
+    /*
      * Purpose: Returns the minute associated with this Time
      *
      * Parameters: nothing
      *
      * Returns: (int) - minute associated with this Time
      */
-    // TODO...
-    public int getMinute(){
+    public int getMinute () {
         return minute;
     }
 
-
-    /* setMinute
+    /*
      * Purpose: sets the minute associated with this Time to parameter value
      *
      * Parameters: int minute
@@ -85,15 +74,13 @@ public class Time {
      *
      * Returns: nothing
      */
-    // TODO...
-    public void setMinute(int minute){
+    public void setMinute (int minute) {
         this.minute = minute;
     }
 
 
 
-
-    /* equals
+    /*
      * Purpose: determines whether the hour and minute of
      *  this instance of Time is equal to other's hour and minute
      *
@@ -101,18 +88,14 @@ public class Time {
      *
      * Precondition: other is not null and is a valid 24 hour clock time
      *
-     * Returns: boolean - true if this Time equals other Time, false otherwise
+     * Returns: true if this Time equals other Time, false otherwise
      */
-    // TODO...
-    public boolean equals(Time other){
-        if(this.hour == other.hour && this.minute == other.minute){
-            return true;
-        }
-        return false;
+    public boolean equals (Time other) {
+        return  other.getHour()   == hour &&
+                other.getMinute() == minute;
     }
-
     
-    /* isBefore
+    /*
      * Purpose: determines whether this instance of Time
      *   is strictly less that of other Time
      *
@@ -122,24 +105,16 @@ public class Time {
      *
      * Returns: boolean - true if this Time is before other Time, false otherwise
      */
-    // TODO...
-    public boolean isBefore(Time other){
-        if(this.hour < other.hour){
-            return true;
-        }else if(this.hour == other.hour){
-            if(this.minute < other.minute){
-                return true;
-            }
-        }
-        return false;
+    public boolean isBefore (Time other) {
+        return  hour < other.getHour() ||
+                (hour == other.getHour() && minute < other.getMinute());
     }
 
-
     
-    /* addTime
-     * Purpose: updates the values of this Time's hour and minute
-     *  by adding the given minutes.
-     *  The updated time is a valid 24 hour clock Time
+    /*
+     * Purpose: creates a new Time object with the value of
+     *  this Time's hour and minute with given minutes added
+     *  The new time is a valid 24 hour clock Time
      *
      * Parameters: int minutes
      *
@@ -152,23 +127,18 @@ public class Time {
      *  we add 70 minutes (1 hr, 10 minutes) => 12:40am = 0:40 on 24 hour clock
      *  RECALL 00:00 is 12:00am which is midnight
      */
-    // TODO...
-    public void addTime(int minutes){
-        int hour_addition = (this.minute + minutes)/60;
-        int minute_addition = (this.minute + minutes)%60;
-        if((this.hour + hour_addition) < 24){
-            this.hour = this.hour + hour_addition;
-        }else{
-            this.hour = this.hour + hour_addition - 24;
-        }
-        this.minute = minute_addition;
+    public void addTime(int minutes) {
+        int newMinute = minute + minutes;
+        int newHour = hour + newMinute/60;
+        
+        newMinute %= 60;
+        hour = newHour % 24;
+        minute = newMinute;
 
     }
-    
 
 
-
-    /* toString
+    /*
      * Purpose: returns a String representing this Time formated as:
      *  hour:minute am/pm
      *
@@ -182,19 +152,18 @@ public class Time {
      *  NOTICE: ignore that the leading 0 is not printed in the minutes
      *  Time t = new Time(0, 22)
      *  t.toString() returns "0:22am"
-     *  NOTICE: we are representing 0:00am as 0:0am, not 12:00am to simplify
+     *  NOTICE: we are representing 0:00am as 0:0aa, not 12:00am to simplify
      */
-    // TODO...
-    public String toString(){
-        if(hour < 12 && hour != 0){
-            return hour + ":" + minute + "am";
-        }else if(hour == 0){
-            return hour + ":" + minute + "am";
-        }else{
-            return (hour - 12) + ":" + minute + "pm";
-        }
-        
-    }
-    
+	public String toString() {
+        int newHour = hour % 12;
 
+        String result = newHour + ":" + minute;
+        
+        if (hour/12==0)
+            result += "am";
+        else
+            result += "pm";
+        
+        return result;
+	}
 }
