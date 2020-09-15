@@ -3,8 +3,9 @@
  *  represents time on a 24 hour clock in hours and minutes
  *  from 0:0 to 23:59
  */
-public class Time {
+public class Time implements Comparable<Time>{
 
+    private static final int MINUTES_PER_HOUR = 60;
     private int hour;   // can be 0 to 23 inclusive
     private int minute; // can be 0 to 59 inclusive
 
@@ -78,8 +79,6 @@ public class Time {
         this.minute = minute;
     }
 
-
-
     /*
      * Purpose: determines whether the hour and minute of
      *  this instance of Time is equal to other's hour and minute
@@ -96,18 +95,23 @@ public class Time {
     }
     
     /*
-     * Purpose: determines whether this instance of Time
-     *   is strictly less that of other Time
+     * Purpose: compares this and other times by the total minutes in
+     *  hours and minutes combined
      *
      * Parameters: Time other
      *
      * Precondition: other is not null and is a valid 24 hour clock Time
      *
-     * Returns: boolean - true if this Time is before other Time, false otherwise
+     * Returns: int -
+     *  negative number if this time is earlier than other time,
+     *  positive number if other time is earlier than this time
+     *  0 if times are equal
      */
-    public boolean isBefore (Time other) {
-        return  hour < other.getHour() ||
-                (hour == other.getHour() && minute < other.getMinute());
+    public int compareTo (Time other) {
+        int thisMinutes = this.hour * MINUTES_PER_HOUR + this.minute;
+        int otherMinutes = other.hour * MINUTES_PER_HOUR + other.minute;
+        
+        return thisMinutes - otherMinutes;
     }
 
     
@@ -152,7 +156,7 @@ public class Time {
      *  NOTICE: ignore that the leading 0 is not printed in the minutes
      *  Time t = new Time(0, 22)
      *  t.toString() returns "0:22am"
-     *  NOTICE: we are representing 0:00am as 0:0aa, not 12:00am to simplify
+     *  NOTICE: we are representing 0:00am as 0:0am, not 12:00am to simplify
      */
 	public String toString() {
         int newHour = hour % 12;
@@ -167,3 +171,4 @@ public class Time {
         return result;
 	}
 }
+
